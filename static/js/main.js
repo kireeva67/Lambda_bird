@@ -112,22 +112,33 @@ function turnArrowsDown(arrowTag){
             continue;
         }
         tag.name = 'down';
-        tag.src = "../static/img/caret-down.png";
+        tag.src = "./static/img/caret-down.png";
     }
 }
 
 
-function showSortedRecords(tag=sortTag){
+function showSortedRecords(tag){
+    let isClick = Boolean(tag);
+    tag = (tag) ? tag : sortTag;
     if(tag.name === 'down'){
-        tag.name = 'up';
-        tag.src = "../static/img/sort-up.png";
         sortFiltered(tag.id);
+        if(isClick){
+            tag.name = 'up';
+            tag.src = "./static/img/sort-up.png";
+        }
+        else{
+            filtered.reverse();
+        }
+        
     }
     else{
-        tag.name = 'down';
-        tag.src = "../static/img/caret-down.png";
         sortFiltered(tag.id);
-        filtered.reverse();
+        if(isClick){
+            tag.name = 'down';
+            tag.src = "./static/img/caret-down.png";
+            filtered.reverse();
+        }
+        
     }
     clearTable();
     showResults();
